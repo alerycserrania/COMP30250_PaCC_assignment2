@@ -37,8 +37,8 @@ int main(int argc, char *argv[])
 
     for (i = 0; i < N * N; i++)
     {
-        A[i] = rand() % 10 - 5;
-        B[i] = rand() % 10 - 5;
+        A[i] = 1 + i;
+        B[i] = 1 + i;
         C[i] = 0.;
     }
 
@@ -75,10 +75,12 @@ double compute_mult_ijk(int N, double *A, double *B, double *C)
     {
         for (j = 0; j < N; j++)
         {
+            double sum = 0.0;
             for (k = 0; k < N; k++)
             {
-                C[i * N + j] += A[i * N + k] * B[k * N + j];
+                sum += A[i * N + k] * B[k * N + j];
             }
+            C[i * N + j] += sum;
         }
     }
 }

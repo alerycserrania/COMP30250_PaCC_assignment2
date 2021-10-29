@@ -6,7 +6,7 @@ import subprocess
 NB_ITERATION = 25
 SIZES = [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024]
 
-FILENAMES_NON_BLOCK = ['./non_blocked_ijk.out', './natural_blas.out']
+FILENAMES_NON_BLOCK = ['./non_blocked_ijk.out', './blas_routine.out']
 FILENAMES_BLOCK = ['./blocked_ijk_atlas.out', './blocked_kij_atlas.out']
 
 def factorize(num):
@@ -25,7 +25,7 @@ for filename in FILENAMES_NON_BLOCK:
             output = subprocess.run([filename, str(size), 'n', 'y'], stdout=subprocess.PIPE).stdout.decode('utf-8')
             total_elapsed += float(output.split(': ')[-1][:-2])
         csvwriter.writerow([filename, size, 1, total_elapsed / NB_ITERATION])
-        print([filename, size, 1, total_elapsed / NB_ITERATION])
+        print([filename, size, size, total_elapsed / NB_ITERATION])
 
 for filename in FILENAMES_BLOCK:
     for size in SIZES:
